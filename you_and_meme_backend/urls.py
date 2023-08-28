@@ -19,6 +19,8 @@ from django.urls import path, include
 
 from rest_framework import routers
 from you_and_meme_backend_app.views import UserViewSet, PostViewSet, CommentViewSet
+from rest_framework_simplejwt import views as jwt_views
+from you_and_meme_backend_app import views
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)
@@ -29,4 +31,9 @@ router.register('comments', CommentViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(),
+         name='token_refresh'),
+    path('user/login/', views.LoginView.as_view(), name="auth-login"),
 ]
