@@ -38,4 +38,4 @@ class Comment(models.Model):
     body = models.TextField()
 
     def __str__(self):
-        return f''
+        return f'{self.user}\'s comment on {self.post}'
