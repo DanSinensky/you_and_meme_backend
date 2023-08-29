@@ -1,14 +1,27 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
-class User(models.Model):
-    username = models.CharField(max_length=100)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=100)
     password = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'{self.username}'
+        return f'{self.user}'
 
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 # class Like(models.Model):
 #     user = models.ForeignKey(
@@ -20,7 +33,7 @@ class User(models.Model):
 
 class Post(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='posts')
+        Profile, on_delete=models.CASCADE, related_name='posts')
     meme = models.TextField()
     likes = models.IntegerField(default=0)
     # likes = models.ForeignKey(
@@ -32,7 +45,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='comments')
+        Profile, on_delete=models.CASCADE, related_name='comments')
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='comments')
     body = models.TextField()

@@ -1,10 +1,11 @@
 from rest_framework import viewsets
 
-from .serializers import UserSerializer, PostSerializer, CommentSerializer, TokenSerializer
-from .models import User, Post, Comment
+from .serializers import ProfileSerializer, PostSerializer, CommentSerializer, UserSerializer, TokenSerializer
+from .models import Profile, Post, Comment
 
-from django.shortcuts import render, redirect
+# from django.shortcuts import render, redirect
 from rest_framework import generics, permissions, status
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -36,7 +37,8 @@ class LoginView(generics.ListCreateAPIView):
             refresh = RefreshToken.for_user(user)
             serializer = TokenSerializer(data={
                 # using DRF JWT utility functions to generate a token
-                "token": str(refresh.access_token)
+                "token": str(refresh.access_token),
+                "username": user.user
             })
             serializer.is_valid()
             return Response(serializer.data)
@@ -68,9 +70,10 @@ class RegisterUsersView(generics.ListCreateAPIView):
         return Response(status=status.HTTP_201_CREATED)
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAdminUser]
 
 
 class PostViewSet(viewsets.ModelViewSet):

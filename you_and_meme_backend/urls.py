@@ -18,12 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from rest_framework import routers
-from you_and_meme_backend_app.views import UserViewSet, PostViewSet, CommentViewSet
+from you_and_meme_backend_app.views import ProfileViewSet, PostViewSet, CommentViewSet
 from rest_framework_simplejwt import views as jwt_views
 from you_and_meme_backend_app import views
 
 router = routers.DefaultRouter()
-router.register('users', UserViewSet)
+router.register('users', ProfileViewSet)
 router.register('posts', PostViewSet)
 router.register('comments', CommentViewSet)
 
