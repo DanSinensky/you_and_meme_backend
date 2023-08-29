@@ -4,7 +4,7 @@ from .serializers import ProfileSerializer, PostSerializer, CommentSerializer, U
 from .models import Profile, Post, Comment
 
 
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 # from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -24,6 +24,7 @@ class LoginView(generics.ListCreateAPIView):
     # Permission checks are always run at the very start of the view, before any other code is allowed to proceed.
     # The permission class here is set to AllowAny, which overwrites the global class to allow anyone to have access to login.
     # permission_classes = [IsAdminUser]
+    permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -38,8 +39,7 @@ class LoginView(generics.ListCreateAPIView):
             refresh = RefreshToken.for_user(user)
             serializer = TokenSerializer(data={
                 # using DRF JWT utility functions to generate a token
-                "token": str(refresh.access_token),
-                "username": user.user
+                "token": str(refresh.access_token)
             })
             serializer.is_valid()
             return Response(serializer.data)
