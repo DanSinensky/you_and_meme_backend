@@ -3,14 +3,15 @@ from rest_framework import viewsets
 from .serializers import ProfileSerializer, PostSerializer, CommentSerializer, UserSerializer, TokenSerializer
 from .models import Profile, Post, Comment
 
-# from django.shortcuts import render, redirect
-from rest_framework import generics, permissions, status
-from rest_framework.permissions import IsAdminUser
+
+from rest_framework import generics, status
+# from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+# from rest_framework_simplejwt import views as jwt_views
 
-# JWT settings
+
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -22,7 +23,7 @@ class LoginView(generics.ListCreateAPIView):
     # This permission class will overide the global permission class setting
     # Permission checks are always run at the very start of the view, before any other code is allowed to proceed.
     # The permission class here is set to AllowAny, which overwrites the global class to allow anyone to have access to login.
-    permission_classes = (permissions.AllowAny,)
+    # permission_classes = [IsAdminUser]
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -49,7 +50,7 @@ class RegisterUsersView(generics.ListCreateAPIView):
     """
     POST user/signup/
     """
-    permission_classes = (permissions.AllowAny,)
+    # permission_classes = [IsAdminUser]
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -70,17 +71,27 @@ class RegisterUsersView(generics.ListCreateAPIView):
         return Response(status=status.HTTP_201_CREATED)
 
 
+# class CustomTokenObtainPairView(jwt_views.TokenObtainPairView):
+#     permission_classes = [IsAdminUser]
+
+
+# class CustomTokenRefreshView(jwt_views.TokenRefreshView):
+#     permission_classes = [IsAdminUser]
+
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [IsAdminUser]
+    # permission_classes = [IsAdminUser]
 
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    # permission_classes = [IsAdminUser]
 
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    # permission_classes = [IsAdminUser]
