@@ -3,7 +3,7 @@ from .models import Profile, Post, Comment
 from django.contrib.auth.models import User
 
 
-class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
