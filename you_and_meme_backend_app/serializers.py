@@ -3,12 +3,6 @@ from .models import Profile, Post, Comment
 from django.contrib.auth.models import User
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = '__all__'
-
-
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -33,3 +27,11 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = [f.name for f in Post._meta.fields] + ['comments']
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    posts = PostSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = [f.name for f in Profile._meta.fields] + ['posts']
