@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Post, Comment
+from .models import Profile, Post, Comment, Meme
 from django.contrib.auth.models import User
 
 
@@ -35,3 +35,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [f.name for f in Profile._meta.fields] + ['posts']
+
+
+class MemeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Meme
+        fields = '__all__'

@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from .serializers import ProfileSerializer, PostSerializer, CommentSerializer, UserSerializer, TokenSerializer
-from .models import Profile, Post, Comment
+from .serializers import ProfileSerializer, PostSerializer, CommentSerializer, UserSerializer, TokenSerializer, MemeSerializer
+from .models import Profile, Post, Comment, Meme
 
 
 from rest_framework import generics, status, permissions
@@ -97,4 +97,10 @@ class PostViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    # permission_classes = [IsAdminUser]
+
+
+class MemeViewSet(viewsets.ModelViewSet):
+    queryset = Meme.objects.all()
+    serializer_class = MemeSerializer
     # permission_classes = [IsAdminUser]
