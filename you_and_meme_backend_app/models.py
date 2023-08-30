@@ -52,3 +52,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user}\'s comment on {self.post} id: {self.id}'
+
+
+class Meme(models.Model):
+    name = models.CharField(max_length=100)
+    url = models.TextField()
+    width = models.IntegerField()
+    height = models.IntegerField()
+    box_count = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.name}'
