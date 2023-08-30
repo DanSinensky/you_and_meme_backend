@@ -64,7 +64,7 @@ class RegisterUsersView(generics.CreateAPIView):
         if not username or not password or not email:
             return Response(
                 data={
-                    "message": "username, password and email is required to register a user"
+                    "message": "Username, password and email is required to register a user."
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -91,7 +91,22 @@ class ProfileViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = (permissions.AllowAny,)
     # permission_classes = [IsAdminUser]
+
+    def post(self, request, *args, **kwargs):
+        meme = request.data.get("meme", "")
+        if not meme:
+            return Response(
+                data={
+                    "message": "Meme url is required to create a post."
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        new_post = Post.objects.create_post(
+            meme=meme
+        )
+        return Response(status=status.HTTP_201_CREATED)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
