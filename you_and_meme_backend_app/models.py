@@ -4,6 +4,13 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+# class Like(models.Model):
+#     user = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name='likes')
+
+#     def __str__(self):
+#         return f'{len(self.user)} likes'
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=100)
@@ -22,13 +29,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-
-# class Like(models.Model):
-#     user = models.ForeignKey(
-#         User, on_delete=models.CASCADE, related_name='likes')
-
-#     def __str__(self):
-#         return f'{len(self.user)} likes'
 
 
 class Post(models.Model):
@@ -51,4 +51,4 @@ class Comment(models.Model):
     body = models.TextField()
 
     def __str__(self):
-        return f'{self.user}\'s comment on {self.post}'
+        return f'{self.user}\'s comment on {self.post} id: {self.id}'
