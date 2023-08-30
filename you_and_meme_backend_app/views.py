@@ -15,7 +15,8 @@ from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
-class LoginView(generics.ListCreateAPIView):
+# class LoginView(generics.ListCreateAPIView):
+class LoginView(generics.CreateAPIView):
     """
     POST user/login/
     """
@@ -46,11 +47,13 @@ class LoginView(generics.ListCreateAPIView):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
-class RegisterUsersView(generics.ListCreateAPIView):
+# class RegisterUsersView(generics.ListCreateAPIView):
+class RegisterUsersView(generics.CreateAPIView):
     """
     POST user/signup/
     """
     # permission_classes = [IsAdminUser]
+    permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
