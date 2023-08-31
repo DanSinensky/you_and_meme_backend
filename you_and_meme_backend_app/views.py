@@ -11,6 +11,16 @@ from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
+class CustomToken(RefreshToken):
+
+    @classmethod
+    def for_user(cls, user):
+        token = super(CustomToken, cls).for_user(user)
+
+        token.payload['username'] = user.username
+        return token
+
+
 class LoginView(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
@@ -22,7 +32,7 @@ class LoginView(generics.CreateAPIView):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            refresh = RefreshToken.for_user(user)
+            refresh = CustomToken.for_user(user)
             serializer = TokenSerializer(data={
                 "token": str(refresh.access_token)
             })
