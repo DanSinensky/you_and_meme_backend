@@ -55,6 +55,7 @@ class Comment(models.Model):
 
 
 class Meme(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     url = models.TextField()
     width = models.IntegerField()
