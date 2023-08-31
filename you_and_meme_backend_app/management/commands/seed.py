@@ -19,21 +19,3 @@ class Command(BaseCommand):
                 # Assuming the JSON data directly matches the model fields
                 Meme.objects.create(**item)
         self.stdout.write(self.style.SUCCESS('Data imported successfully'))
-
-# import os
-# import django
-# from django.conf import settings
-# from you_and_meme_backend_app.models import Meme
-# import json
-# from django.core.management import execute_from_command_line
-
-# django.setup()
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-#                       "you_and_meme_backend.settings")
-
-# file = open('master.json')
-# data = json.load(file)
-
-# Meme.objects.bulk_create([Meme(**item) for item in data])
-
-# file.close()
