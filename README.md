@@ -111,26 +111,23 @@ python manage.py runserver
 
 ### API Endpoints
 
-| Resource | Method | Endpoint              | Description                |
-| -------- | ------ | --------------------- | -------------------------- |
-| Users    | GET    | `/api/users/`         | List all users             |
-|          | GET    | `/api/users/{id}/`    | Retrieve a single user     |
-|          | POST   | `/api/users/`         | Create a new user          |
-|          | PUT    | `/api/users/{id}/`    | Update a user              |
-|          | PATCH  | `/api/users/{id}/`    | Partially update a user    |
-|          | DELETE | `/api/users/{id}/`    | Delete a user              |
-| Posts    | GET    | `/api/posts/`         | List all posts             |
-|          | GET    | `/api/posts/{id}/`    | Retrieve a single post     |
-|          | POST   | `/api/posts/`         | Create a new post          |
-|          | PUT    | `/api/posts/{id}/`    | Update a post              |
-|          | PATCH  | `/api/posts/{id}/`    | Partially update a post    |
-|          | DELETE | `/api/posts/{id}/`    | Delete a post              |
-| Comments | GET    | `/api/comments/`      | List all comments          |
-|          | GET    | `/api/comments/{id}/` | Retrieve a single comment  |
-|          | POST   | `/api/comments/`      | Create a new comment       |
-|          | PUT    | `/api/comments/{id}/` | Update a comment           |
-|          | PATCH  | `/api/comments/{id}/` | Partially update a comment |
-|          | DELETE | `/api/comments/{id}/` | Delete a comment           |
+| Resource | Method | Endpoint          | Description               |
+| -------- | ------ | ----------------- | ------------------------- |
+| Users    | GET    | `/users/`         | List all users            |
+|          | GET    | `/users/{id}/`    | Retrieve a single user    |
+|          | POST   | `/users/`         | Create a new user         |
+|          | PUT    | `/users/{id}/`    | Update a user             |
+|          | DELETE | `/users/{id}/`    | Delete a user             |
+| Posts    | GET    | `/posts/`         | List all posts            |
+|          | GET    | `/posts/{id}/`    | Retrieve a single post    |
+|          | POST   | `/posts/`         | Create a new post         |
+|          | PUT    | `/posts/{id}/`    | Update a post             |
+|          | DELETE | `/posts/{id}/`    | Delete a post             |
+| Comments | GET    | `/comments/`      | List all comments         |
+|          | GET    | `/comments/{id}/` | Retrieve a single comment |
+|          | POST   | `/comments/`      | Create a new comment      |
+|          | PUT    | `/comments/{id}/` | Update a comment          |
+|          | DELETE | `/comments/{id}/` | Delete a comment          |
 
 ---
 
