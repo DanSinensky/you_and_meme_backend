@@ -36,11 +36,13 @@ class Post(models.Model):
         Profile, on_delete=models.CASCADE, related_name='posts')
     meme = models.TextField()
     likes = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     # likes = models.ForeignKey(
     #     Like, on_delete=models.CASCADE, related_name='likes')
 
     def __str__(self):
-        return f'{self.user}\'s Post'
+        return f'{self.user}\'s post\nid: {self.id}\nlikes: {self.likes}\ncreated: {self.created}'
 
 
 class Comment(models.Model):
@@ -49,9 +51,11 @@ class Comment(models.Model):
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='comments')
     body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.user}\'s comment on {self.post} id: {self.id}'
+        return f'{self.user}\'s comment on Post {self.post.id}\nid: {self.id}\ncreated: {self.created}'
 
 
 class Meme(models.Model):
