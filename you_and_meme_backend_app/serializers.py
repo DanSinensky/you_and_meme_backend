@@ -31,10 +31,13 @@ class PostSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     posts = PostSerializer(many=True, read_only=True)
+    user_string = serializers.ReadOnlyField(
+        source='user.username')
 
     class Meta:
         model = Profile
-        fields = [f.name for f in Profile._meta.fields] + ['posts']
+        fields = [f.name for f in Profile._meta.fields] + \
+            ['posts', 'user_string']
 
 
 class MemeSerializer(serializers.ModelSerializer):

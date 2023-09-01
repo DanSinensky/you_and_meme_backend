@@ -19,6 +19,9 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user}'
 
+    def user_string(self):
+        return f'{self.user}'
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
