@@ -87,6 +87,28 @@ class PostViewSet(viewsets.ModelViewSet):
         )
         return Response(status=status.HTTP_201_CREATED)
 
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        likes = request.data.get("likes", None)
+
+        if likes is not None:
+            instance.likes = likes
+            instance.save()
+
+            return Response(
+                data={
+                    "message": "Likes updated successfully."
+                },
+                status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                data={
+                    "message": "Likes field is required to update likes."
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
