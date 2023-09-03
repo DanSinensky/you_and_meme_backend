@@ -13,15 +13,6 @@ from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
-# class CustomToken(RefreshToken):
-
-#     @classmethod
-#     def for_user(cls, user):
-#         token = super(CustomToken, cls).for_user(user)
-
-#         token.payload['username'] = user.username
-#         return token
-
 class CustomToken(RefreshToken):
 
     @classmethod
@@ -30,7 +21,6 @@ class CustomToken(RefreshToken):
 
         try:
             profile = user.profile
-            # Assuming 'likedPosts' is the name of the ArrayField
             liked_posts = profile.likedPosts
             token.payload['username'] = user.username
             token.payload['likedPosts'] = liked_posts
@@ -133,9 +123,24 @@ class ProfileViewSet(viewsets.ModelViewSet):
             profile.likedPosts.extend(new_numbers)
             profile.save()
 
-            return Response({"message": "Numbers added to likedPosts successfully."})
+            return Response({"message": "Post ID added to likedPosts successfully."})
         else:
-            return Response({"message": "No numbers provided to add to likedPosts."}, status=400)
+            return Response({"message": "No Post ID provided to add to likedPosts."}, status=400)
+
+    @action(detail=True, methods=['PUT'])
+    def remove_from_liked_posts(self, request, pk=None):
+        profile = self.get_object()
+        number_to_remove = request.data.get("likedPosts", None)
+
+        if number_to_remove is not None:
+            try:
+                profile.likedPosts.remove(number_to_remove)
+                profile.save()
+                return Response({"message": "Post ID removed from likedPosts successfully."})
+            except ValueError:
+                return Response({"message": "Post ID not found in likedPosts."}, status=400)
+        else:
+            return Response({"message": "No Post ID provided to remove from likedPosts."}, status=400)
 
 
 class PostViewSet(viewsets.ModelViewSet):
