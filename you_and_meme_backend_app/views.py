@@ -102,6 +102,19 @@ class ProfileViewSet(viewsets.ModelViewSet):
         else:
             return Response({"message": "Password field is required to change the password."}, status=400)
 
+    @action(detail=True, methods=['PUT'])
+    def add_to_liked_posts(self, request, pk=None):
+        profile = self.get_object()
+        new_numbers = request.data.get("likedPosts", [])
+
+        if new_numbers:
+            profile.likedPosts.extend(new_numbers)
+            profile.save()
+
+            return Response({"message": "Numbers added to likedPosts successfully."})
+        else:
+            return Response({"message": "No numbers provided to add to likedPosts."}, status=400)
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
