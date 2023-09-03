@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'email')
+        fields = ('username', 'password', 'email', 'avatar')
 
 
 class TokenSerializer(serializers.Serializer):
@@ -31,10 +31,19 @@ class PostSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     posts = PostSerializer(many=True, read_only=True)
+    user_string = serializers.ReadOnlyField(
+        source='user.username')
 
     class Meta:
         model = Profile
-        fields = [f.name for f in Profile._meta.fields] + ['posts']
+        fields = [f.name for f in Profile._meta.fields] + \
+            ['posts', 'user_string']
+
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
 
 
 class MemeSerializer(serializers.ModelSerializer):
