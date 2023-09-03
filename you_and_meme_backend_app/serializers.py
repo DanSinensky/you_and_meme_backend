@@ -31,7 +31,6 @@ class PostSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     posts = PostSerializer(many=True, read_only=True)
-    # likedPosts = LikeSerializer(many=True, read_only=True)
     user_string = serializers.ReadOnlyField(
         source='user.username')
 

@@ -52,6 +52,7 @@ class RegisterUsersView(generics.CreateAPIView):
         username = request.data.get("username", "")
         password = request.data.get("password", "")
         email = request.data.get("email", "")
+        avatar = request.data.get("avatar", "")
         if not username or not password or not email:
             return Response(
                 data={
