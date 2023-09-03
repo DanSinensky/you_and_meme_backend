@@ -61,7 +61,7 @@ class RegisterUsersView(generics.CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         new_user = User.objects.create_user(
-            username=username, password=password, email=email
+            username=username, password=password, email=email, avatar=avatar
         )
         return Response(status=status.HTTP_201_CREATED)
 
