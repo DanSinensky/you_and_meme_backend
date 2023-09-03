@@ -13,13 +13,30 @@ from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
+# class CustomToken(RefreshToken):
+
+#     @classmethod
+#     def for_user(cls, user):
+#         token = super(CustomToken, cls).for_user(user)
+
+#         token.payload['username'] = user.username
+#         return token
+
 class CustomToken(RefreshToken):
 
     @classmethod
     def for_user(cls, user):
         token = super(CustomToken, cls).for_user(user)
 
-        token.payload['username'] = user.username
+        try:
+            profile = user.profile
+            # Assuming 'likedPosts' is the name of the ArrayField
+            liked_posts = profile.likedPosts
+            token.payload['username'] = user.username
+            token.payload['likedPosts'] = liked_posts
+        except Profile.DoesNotExist:
+            pass
+
         return token
 
 
