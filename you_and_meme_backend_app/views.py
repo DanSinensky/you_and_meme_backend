@@ -1,13 +1,15 @@
-from rest_framework import viewsets
-
 from .serializers import ProfileSerializer, PostSerializer, CommentSerializer, UserSerializer, TokenSerializer, MemeSerializer
 from .models import Profile, Post, Comment, Meme
 
-
+from rest_framework import viewsets, status
 from rest_framework import generics, status, permissions
+from rest_framework.decorators import action
 from rest_framework.response import Response
+
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth.hashers import make_password
+
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -64,8 +66,41 @@ class RegisterUsersView(generics.CreateAPIView):
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.AllowAny,)
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
+
+    @action(detail=True, methods=['PUT'])
+    def update_username(self, request, pk=None):
+        profile = self.get_object()
+        new_username = request.data.get("username", None)
+
+        if new_username is not None:
+            profile.user.username = new_username
+            profile.user.save()
+            return Response({"message": "Username updated successfully."})
+        else:
+            return Response({"message": "Username field is required to update username."}, status=400)
+
+    @action(detail=True, methods=['PUT'])
+    def update_password(self, request, pk=None):
+        profile = self.get_object()
+        new_password = request.data.get("password", None)
+
+        if new_password is not None:
+            user = profile.user
+            user.password = make_password(new_password)
+            user.save()
+
+            update_session_auth_hash(request, user)
+
+            return Response({"message": "Password updated successfully."})
+        else:
+            return Response({"message": "Password field is required to change the password."}, status=400)
 
 
 class PostViewSet(viewsets.ModelViewSet):

@@ -4,13 +4,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-# class Like(models.Model):
-#     user = models.ForeignKey(
-#         User, on_delete=models.CASCADE, related_name='likes')
-
-#     def __str__(self):
-#         return f'{len(self.user)} likes'
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=100)
@@ -41,8 +34,6 @@ class Post(models.Model):
     likes = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # likes = models.ForeignKey(
-    #     Like, on_delete=models.CASCADE, related_name='likes')
 
     def __str__(self):
         return f'{self.user}\'s post\nid: {self.id}\nlikes: {self.likes}\ncreated: {self.created}'

@@ -39,6 +39,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = [f.name for f in Profile._meta.fields] + \
             ['posts', 'user_string']
 
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+
 
 class MemeSerializer(serializers.ModelSerializer):
     class Meta:
