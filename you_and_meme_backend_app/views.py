@@ -167,7 +167,7 @@ class PostViewSet(viewsets.ModelViewSet):
         likes = request.data.get("likes", None)
 
         if likes is not None:
-            instance.likes = likes
+            instance.likes += int(likes)
             instance.save()
 
             return Response(
