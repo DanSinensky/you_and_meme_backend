@@ -56,13 +56,17 @@ class RegisterUsersView(generics.CreateAPIView):
         if not username or not password or not email:
             return Response(
                 data={
-                    "message": "Username, password and email is required to register a user."
+                    "message": "Username, password, and email are required to register a user."
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
         new_user = User.objects.create_user(
-            username=username, password=password, email=email, avatar=avatar
+            username=username, password=password, email=email
         )
+        if avatar:
+            profile = new_user.profile
+            profile.avatar = avatar
+            profile.save()
         return Response(status=status.HTTP_201_CREATED)
 
 

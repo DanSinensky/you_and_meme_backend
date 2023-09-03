@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'email')
+        fields = ('username', 'password', 'email', 'avatar')
 
 
 class TokenSerializer(serializers.Serializer):
@@ -37,7 +37,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [f.name for f in Profile._meta.fields] + \
-            ['posts', 'likedPosts', 'user_string']
+            ['posts', 'user_string']
 
     def update(self, instance, validated_data):
         for attr, value in validated_data.items():
