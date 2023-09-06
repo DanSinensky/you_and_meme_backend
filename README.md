@@ -124,7 +124,7 @@ python manage.py runserver
 
 ### API Endpoints
 
-- Using Django REST Framework's 'ModelViewSet,' each model is automatically outfitted with CRUD endpoints. However, several custome endpoints were created to handle many of the features.
+- Using Django REST Framework's 'ModelViewSet,' each model is automatically outfitted with CRUD endpoints. However, several custom endpoints were created to handle many of the features.
 
 ### API Endpoints
 
