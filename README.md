@@ -111,28 +111,34 @@ python manage.py runserver
 
 ### API Endpoints
 
-| Resource | Method | Endpoint          | Description               |
-| -------- | ------ | ----------------- | ------------------------- |
-| Users    | GET    | `/users/`         | List all users            |
-|          | GET    | `/users/{id}/`    | Retrieve a single user    |
-|          | POST   | `/users/`         | Create a new user         |
-|          | PUT    | `/users/{id}/`    | Update a user             |
-|          | DELETE | `/users/{id}/`    | Delete a user             |
-| Posts    | GET    | `/posts/`         | List all posts            |
-|          | GET    | `/posts/{id}/`    | Retrieve a single post    |
-|          | POST   | `/posts/`         | Create a new post         |
-|          | PUT    | `/posts/{id}/`    | Update a post             |
-|          | DELETE | `/posts/{id}/`    | Delete a post             |
-| Comments | GET    | `/comments/`      | List all comments         |
-|          | GET    | `/comments/{id}/` | Retrieve a single comment |
-|          | POST   | `/comments/`      | Create a new comment      |
-|          | PUT    | `/comments/{id}/` | Update a comment          |
-|          | DELETE | `/comments/{id}/` | Delete a comment          |
+| Resource | Method | Endpoint                               | Description                    |
+| -------- | ------ | -------------------------------------- | ------------------------------ |
+| Users    | GET    | `/users/`                              | List all users                 |
+|          | GET    | `/users/{id}/`                         | Retrieve a single user         |
+|          | POST   | `/user/signup/`                        | Create a new user              |
+|          | POST   | `/user/login/`                         | Login user and return to token |
+|          | PUT    | `/users/{id}/`                         | Update a user's email          |
+|          | PUT    | `/users/{id}/update_username/`         | Update a user's username       |
+|          | PUT    | `/users/{id}/update_password/`         | Update a user's password       |
+|          | PUT    | `/users/{id}/add_to_liked_posts/`      | Update a user's liked posts    |
+|          | PUT    | `/users/{id}/remove_from_liked_posts/` | Update a user's liked posts    |
+|          | DELETE | `/users/{id}/`                         | Delete a user                  |
+| Posts    | GET    | `/posts/`                              | List all posts                 |
+|          | GET    | `/posts/{id}/`                         | Retrieve a single post         |
+|          | POST   | `/posts/`                              | Create a new post              |
+|          | PUT    | `/posts/{id}/`                         | Update a post's likes          |
+|          | DELETE | `/posts/{id}/`                         | Delete a post                  |
+| Comments | GET    | `/comments/`                           | List all comments              |
+|          | GET    | `/comments/{id}/`                      | Retrieve a single comment      |
+|          | POST   | `/comments/`                           | Create a new comment           |
+|          | DELETE | `/comments/{id}/`                      | Delete a comment               |
+| Memes    | GET    | `/memes/`                              | Get all meme templates         |
+| Memes    | GET    | `/memes/{id}/`                         | Get one meme template          |
 
 ---
 
 #### Contact
 
 - Contributors to this project include: <br>
-  [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) | [Alan Malpartida](Alan's LinkedIn) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Kyle Harris](https://www.linkedin.com/in/kyleharris007/)
+  [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | [Alan Malpartida](Alan's LinkedIn)
 - Please reach out to us via LinkedIn
