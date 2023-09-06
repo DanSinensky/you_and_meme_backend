@@ -6,19 +6,20 @@
 
 ### Quicklinks
 
-- [Frontend Repository](link to frontend GitHub goes here)
-- [Deployed App](link to Heroku deployed app goes here)
+- [You & Meme deployed app](https://youandmeme.netlify.app)
+- [Frontend Repository](https://github.com/alantothe/you_and_meme_client)
 
 ### Description
 
-- What do you meme? This social media app is fun for everyone! Scroll through hundreds of memes and add your unique comments to them. Or upload your own meme and get your friends to make comments. Who can come up with the most original meme? You or me? It's You & Meme!
+- What do you meme? This social media app is fun for everyone! Scroll through hundreds of memes and add your unique comments to them. Or create an account, upload your own meme, and get your friends to like and comment. Who can come up with the most original meme? You or me? It's You & Meme!
 
 ### Features
 
+- Create an account
 - User Authentication
 - Post memes
-- Comment on memes
-- Like memes
+- Comment & Like memes
+- Delete memes & comments from your account
 
 ### Tech Stack
 
@@ -26,6 +27,7 @@
 - Django
 - Django REST Framework
 - PostgreSQL
+- SimpleJWT
 
 ### Setup & Install
 
@@ -87,27 +89,42 @@ python manage.py runserver
 
 ### Data Models
 
-#### User
+#### Profile
 
-- `username`: CharField (max_length=100)
+- `user`: OneToOneField (User)
 - `email`: EmailField (max_length=100)
 - `password`: CharField (max_length=100)
+- `likedPosts`: ArrayField
+- `avatar`: TextField
 
 #### Post
 
 - `user`: ForeignKey (User)
 - `meme`: TextField
 - `likes`: IntegerField (default=0)
+- `created`: DateTimeField (auto_now_add=True)
+- `updated_at`: DateTimeField (auto_now=True)
 
 #### Comment
 
 - `user`: ForeignKey (User)
 - `post`: ForeignKey (Post)
 - `body`: TextField
+- `created`: DateTimeField (auto_now_add=True)
+- `updated_at`: DateTimeField (auto_now=True)
+
+#### Meme
+
+- `id` = IntegerField(primary_key=True)
+- `name` = CharField(max_length=100)
+- `url` = TextField
+- `width` = IntegerField
+- `height` = IntegerField
+- `box_count` = IntegerField
 
 ### API Endpoints
 
-- Using Django REST Framework's 'ModelViewSet,' each model is automatically outfitted with CRUD endpoints.
+- Using Django REST Framework's 'ModelViewSet,' each model is automatically outfitted with CRUD endpoints. However, several custome endpoints were created to handle many of the features.
 
 ### API Endpoints
 
@@ -133,12 +150,12 @@ python manage.py runserver
 |          | POST   | `/comments/`                           | Create a new comment           |
 |          | DELETE | `/comments/{id}/`                      | Delete a comment               |
 | Memes    | GET    | `/memes/`                              | Get all meme templates         |
-| Memes    | GET    | `/memes/{id}/`                         | Get one meme template          |
+|          | GET    | `/memes/{id}/`                         | Get one meme template          |
 
 ---
 
 #### Contact
 
 - Contributors to this project include: <br>
-  [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | [Alan Malpartida](Alan's LinkedIn)
+  [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | Alan Malpartida LinkedIn not provided at time of README creation
 - Please reach out to us via LinkedIn
