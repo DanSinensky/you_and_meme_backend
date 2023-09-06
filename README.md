@@ -157,5 +157,4 @@ python manage.py runserver
 #### Contact
 
 - Contributors to this project include: <br>
-  [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | Alan Malpartida LinkedIn not provided at time of README creation
-- Please reach out to us via LinkedIn
+  [Manfred Joa](https://www.linkedin.com/in/manfredjoa/) | [Rebekah Gomez](https://www.linkedin.com/in/rebekah-gomez/) | [Dan Sinensky](https://www.linkedin.com/in/dansinensky/) | [Danish Mansoor](https://www.linkedin.com/in/danishhhm/) | [Kyle Harris](https://www.linkedin.com/in/kyleharris007/) | [Alan Malpartida](https://github.com/alantothe)
